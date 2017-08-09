@@ -1,6 +1,6 @@
 # Statistical Analysis of Stroop Effect using SAS
 
-This project is aiming to analyze the Stroop effect data gathered from research related to the following resource.
+This project is aiming to analyze the Stroop effect data gathered from research somewhat related to the following resource.
 
 https://faculty.washington.edu/chudler/java/timesc.html
 
