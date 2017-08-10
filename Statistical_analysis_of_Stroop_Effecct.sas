@@ -7,6 +7,7 @@ ods graphics on /reset = all; /* width = 5.9 in height = 8 in  border=off
 *ods pdf style = mystyle1 file = "&path\Stroop_effect_Analysis.pdf" dpi=300;
 ods escapechar='^';
 options nodate;
+ODS NOPROCTITLE;
 
 proc template ;
     define style styles.mystyle1; parent = styles.HTMLBlue;
@@ -91,8 +92,30 @@ proc import out = stroop.Stroop_data
 	*Mixed=Yes;
 run;
 
-proc print data = stroop.Stroop_data noobs;
+ods text = "Folowwing table shows the first 10 records of the dataset";
+
+proc print data = stroop.Stroop_data (obs = 10) noobs;
 run;
+
+ods text = "Some descriptive statistics of the dataset are given below";
+
+/*
+proc summary data = stroop.Stroop_data print; 
+	var Incongruent Congruent;
+	output out=summrydat n=number mean=average std=std_deviation median;
+run;
+*/
+proc means data = stroop.Stroop_data  
+		n mean std median min max Q1 Q3 print MAXDEC = 3; 
+	var Incongruent Congruent;
+	output out=summrydat2 n=n mean=mean std=std 
+		median=median min=min max=max Q1=Q1 Q3=Q3;
+	
+run;
+
+
+ods text = "The distribution of variables in the Stroop effect dataset 
+are shown in the following histograms and the density plots.  ";
 
 * Generating Histograms and density plots;
 proc sgplot data = stroop.Stroop_data;
@@ -144,3 +167,8 @@ options orientation = portrait;
 ods graphics on /reset = all;
 *ods pdf close;
 ods html close;
+
+
+ods text = 'time takig to congruent is greater than incongruent test.
+
+independand variable';
