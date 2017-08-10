@@ -79,6 +79,24 @@ run;
 
 
 
+* Get the data in;
+filename fn "&path\stroopdata.csv";
+proc import out = stroop.Stroop_data
+			datafile=fn
+			dbms=csv replace;
+			getnames=yes; 
+	datarow = 2;
+	*guessingrows = 32767;
+	guessingrows = MAX;
+	*Mixed=Yes;
+run;
+
+
+proc template;
+   delete mystyle_text;
+   delete styles.mystyle1;
+run;
+
 
 
 options orientation = portrait; 
