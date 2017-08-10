@@ -113,6 +113,24 @@ proc sgplot data = stroop.Stroop_data;
 run;
 
 
+* Transpose data. Now two multiple columns (previously rows);
+proc transpose data=stroop.Stroop_data out=raw_t;
+run;
+
+/* Transpose data. Now the the values in columns goes to onecolumn
+but grouped by first column-record values*/
+proc transpose data=raw_t out=raw_t1;
+	by _NAME_;
+run;
+
+
+
+proc sgplot data=raw_t1;
+	label col1 = "Time in seconds" _name_="Test Type";
+	vbox col1 / group=_name_ ;
+	xaxis discreteorder=data display=(nolabel);
+	legend;
+run;
 
 
 proc template;
