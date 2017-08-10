@@ -91,6 +91,29 @@ proc import out = stroop.Stroop_data
 	*Mixed=Yes;
 run;
 
+proc print data = stroop.Stroop_data noobs;
+run;
+
+* Generating Histograms and density plots;
+proc sgplot data = stroop.Stroop_data;
+	histogram Incongruent /binwidth = 1;
+	density Incongruent / type=kernel;
+run;
+
+
+proc sgplot data = stroop.Stroop_data;
+	histogram Congruent /binwidth = 1;
+	density Congruent / type=kernel;
+run;
+
+* generate scatter a plot;
+proc sgplot data = stroop.Stroop_data;
+	scatter y = Congruent x = Incongruent;
+
+run;
+
+
+
 
 proc template;
    delete mystyle_text;
