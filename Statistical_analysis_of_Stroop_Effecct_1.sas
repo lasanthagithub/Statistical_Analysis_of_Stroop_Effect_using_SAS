@@ -2,9 +2,12 @@
 %let path = &drive.:\OneDrive_gmail\OneDrive\Dropbox_transfers\Udacity\Nano_Degree_Data_analysis\Project_8_Statistics\Stroop_effect_project;
 libname stroop "&path.";
 
-ods graphics on /reset = all; /* width = 5.9 in height = 8 in  border=off  
-        imagename = "All_OP_water_dist_1" imagefmt= png  ANTIALIASMAX=102900; */
-*ods pdf style = mystyle1 file = "&path\Stroop_effect_Analysis.pdf" dpi=300;
+ods graphics on /reset = all /* width = 5.9 in height = 8 in  border=off  */
+        imagename = "Stroop_effect_Analysis" imagefmt= png  ANTIALIASMAX=102900; 
+ods pdf style = mystyle1 file = "&path\Stroop_effect_Analysis.pdf" dpi=300;
+ods html style = mystyle1 style = mystyle_text path = "&path" gpath = "&path"  
+        file = "Stroop_effect_Analysis.htm" dpi=300;
+
 ods escapechar='^';
 options nodate;
 ODS NOPROCTITLE;
@@ -47,8 +50,7 @@ proc template;
 run;
 
 
-ods html style = mystyle1 style = mystyle_text path = "&path" gpath = "&path"  
-        file = "Stroop_effect_Analysis.htm" dpi=300;
+
 
 Title "Statistical Analysis of Stroop Effect";
 
@@ -132,7 +134,7 @@ proc ttest data=stroop.Stroop_data  alpha=0.05 h0=0;
 run; 
 */
 
-proc ttest data=raw_t1 alpha=0.05 h0=1;
+proc ttest data=raw_t1 alpha=0.05 h0=0 sides = l;
 	class _name_;
 	var col1;
 run; 
@@ -152,6 +154,6 @@ run;
 
 options orientation = portrait; 
 ods graphics on /reset = all;
-*ods pdf close;
+ods pdf close;
 ods html close;
 
