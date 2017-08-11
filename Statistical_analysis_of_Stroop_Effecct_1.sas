@@ -132,13 +132,16 @@ proc ttest data=stroop.Stroop_data  alpha=0.05 h0=0;
 run; 
 */
 
-proc ttest data=raw_t1 alpha=0.05 h0=0;
+proc ttest data=raw_t1 alpha=0.05 h0=1;
 	class _name_;
 	var col1;
 run; 
 
 
-
+proc ttest data=raw_t1 alpha=0.05;
+	class _name_;
+	var col1;
+run; 
 
 proc template;
    delete mystyle_text;
