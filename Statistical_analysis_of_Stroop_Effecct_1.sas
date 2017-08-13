@@ -2,11 +2,7 @@
 %let path = &drive.:\OneDrive_gmail\OneDrive\Dropbox_transfers\Udacity\Nano_Degree_Data_analysis\Project_8_Statistics\Stroop_effect_project;
 libname stroop "&path.";
 
-ods graphics on /reset = all /* width = 5.9 in height = 8 in  border=off  */
-        imagename = "Stroop_effect_Analysis" imagefmt= png  ANTIALIASMAX=102900; 
-ods pdf style = mystyle1 file = "&path\Stroop_effect_Analysis.pdf" dpi=300;
-ods html style = mystyle1 style = mystyle_text path = "&path" gpath = "&path"  
-        file = "Stroop_effect_Analysis.htm" dpi=300;
+
 
 ods escapechar='^';
 options nodate;
@@ -49,7 +45,11 @@ proc template;
    end;
 run;
 
-
+ods graphics on /reset = all /* width = 5.9 in height = 8 in  border=off  */
+        imagename = "Stroop_effect_Analysis" imagefmt= png  ANTIALIASMAX=102900; 
+ods pdf style = mystyle1 file = "&path\Stroop_effect_Analysis.pdf" dpi=300;
+ods html style = mystyle1 style = mystyle_text path = "&path" gpath = "&path"  
+        file = "Stroop_effect_Analysis.htm" dpi=300;
 
 
 Title "Statistical Analysis of Stroop Effect";
@@ -128,12 +128,8 @@ proc sgplot data=raw_t1;
 	legend;
 run;
 
-/*
-proc ttest data=stroop.Stroop_data  alpha=0.05 h0=0;
-	paired  Congruent * Incongruent;
-run; 
-*/
 
+/*
 proc ttest data=raw_t1 alpha=0.05 h0=0 sides = l;
 	class _name_;
 	var col1;
@@ -144,6 +140,18 @@ proc ttest data=raw_t1 alpha=0.05;
 	class _name_;
 	var col1;
 run; 
+*/
+
+/* Paired T -test is the most suitable forthis experiment*/
+/*
+proc ttest data=stroop.Stroop_data  alpha=0.05 h0=0;
+	paired  Congruent * Incongruent;
+run; 
+
+proc ttest data=stroop.Stroop_data  alpha=0.05 h0=0 sides=l;
+	paired  Congruent * Incongruent;
+run; 
+*/
 
 proc template;
    delete mystyle_text;
